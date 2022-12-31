@@ -71,7 +71,7 @@ plot(t,x);
 4- Créer un nouveau signal xnoise, en introduisant un bruit blanc gaussien dans le signal d’origine x(t), puis visualisez-le. Utiliser la commande randn pour générer ce bruit. Il est à noter qu’un bruit blanc est une réalisation d'un processus aléatoire dans lequel la densité spectrale de puissance est la même pour toutes les fréquences de la bande passante. Ce bruit suit une loi normale de moyenne 0 et d’écart type 1.
 ```matlab
 %-Q4
- bruit = 50*randn(size(x));
+ bruit = 30*randn(size(x));
  plot(bruit,'r')
 ```
 <img width="999" alt="4" src="https://user-images.githubusercontent.com/89936910/210148865-bbb529e5-c262-494d-a308-d75ece2d8ea2.png">
@@ -111,3 +111,9 @@ plot(t,x);
  plot(fshift,fftshift(abs(ybruit)));
  ```
  <img width="999" alt="7" src="https://user-images.githubusercontent.com/89936910/210149333-37d7d8ba-e8ba-4a8c-937c-eb63636e3a6f.png">
+
+#Analyse fréquentielle du chant du rorqual bleu 
+
+>Il existe plusieurs signaux dont l’information est encodée dans des sinusoïdes. Les ondes sonores est un bon exemple. Considérons maintenant des données audios >collectées à partir de microphones sous - marins au large de la Californie. On cherche à détecter à travers une analyse de Fourier le contenu fréquentiel d’une onde >sonore émise pas un rorqual bleu.
+
+1- Chargez, depuis le fichier ‘bluewhale.au’, le sous-ensemble de données qui correspond au chant du rorqual bleu du Pacifique. En effet, les appels de rorqual bleu sont des sons à basse fréquence, ils sont à peine audibles pour les humains. Utiliser  la commande audioread pour lire le fichier. Le son à récupérer correspond aux indices  allant de 2.45e4 à 3.10e4.
