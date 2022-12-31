@@ -1,6 +1,6 @@
 # TP1- Analyse spectrale d’un signal Transformée de Fourier discrète
 
-
+<img width="888" alt="55" src="https://user-images.githubusercontent.com/89936910/210150545-852190ec-6c6e-4cb0-9c82-5e15328a6fa8.png">
 <summary>Table of Contents</summary>
   <ol>      
       <li><a href="#Objectifs">Objectifs</a></li>
@@ -58,6 +58,8 @@ plot(t,x);
 <img width="999" alt="2" src="https://user-images.githubusercontent.com/89936910/210148708-0bb2c6b3-cd07-429b-97ae-ed91ac35fb58.png">)
 
 3. Pour mieux visualiser le contenu fréquentiel du signal, utiliser la fonction fftshift, qui effectue un décalage circulaire centré sur zéro du spectre en amplitude obtenu par la commande fft.
+
+
 ```matlab
 %-Q3
  fshift = (-N/2:N/2-1)*(fe/N)
@@ -75,6 +77,7 @@ plot(t,x);
  plot(bruit,'r')
 ```
 <img width="999" alt="4" src="https://user-images.githubusercontent.com/89936910/210148865-bbb529e5-c262-494d-a308-d75ece2d8ea2.png">
+
  ```matlab
  bruit = 50*randn(size(x));
  xnoise = x+bruit;
@@ -112,8 +115,44 @@ plot(t,x);
  ```
  <img width="999" alt="7" src="https://user-images.githubusercontent.com/89936910/210149333-37d7d8ba-e8ba-4a8c-937c-eb63636e3a6f.png">
 
-#Analyse fréquentielle du chant du rorqual bleu 
+# Analyse fréquentielle du chant du rorqual bleu 
 
 >Il existe plusieurs signaux dont l’information est encodée dans des sinusoïdes. Les ondes sonores est un bon exemple. Considérons maintenant des données audios >collectées à partir de microphones sous - marins au large de la Californie. On cherche à détecter à travers une analyse de Fourier le contenu fréquentiel d’une onde >sonore émise pas un rorqual bleu.
 
 1- Chargez, depuis le fichier ‘bluewhale.au’, le sous-ensemble de données qui correspond au chant du rorqual bleu du Pacifique. En effet, les appels de rorqual bleu sont des sons à basse fréquence, ils sont à peine audibles pour les humains. Utiliser  la commande audioread pour lire le fichier. Le son à récupérer correspond aux indices  allant de 2.45e4 à 3.10e4.
+
+ ```matlab
+[x,fs]=audioread("bluewhale.au")
+chant=x(2.45e4:3.10e4);
+
+ ```
+2- Ecoutez ce signal en utilisant la commande sound, puis visualisez-le.
+
+>La TFD peut être utilisée pour identifier les composantes fréquentielles de ce signal audio. Dans certaines applications qui traitent de grandes quantités de données >avec fft, il est courant de redimensionner l'entrée de sorte que le nombre d'échantillons soit une puissance de 2. fft remplit automatiquement les données avec des >zéros pour augmenter la taille de l'échantillon. Cela peut accélérer considérablement le calcul de la transformation.
+
+ ```matlab
+%Ecouter le 
+sound(x,fs)
+
+%visualisation
+N = length(chant);
+ts = 1/fs;
+t = (0:N-1)*(10*ts);
+plot(t,chant,'r');
+
+ ```
+<img width="999" alt="8" src="https://user-images.githubusercontent.com/89936910/210150307-bb511216-5a24-4321-a7dc-1c96c8b0b5e0.png">
+
+3- Spécifiez une nouvelle longueur de signal qui sera une puissance de 2, puis tracer la densité spectrale de puissance du signal
+```matlab
+dsp_chant=(abs(fft(chant)).^2)/N;
+f=(0:floor(N/2))*(fs/N)/10;
+plot(f,dsp_chant(1:floor(N/2)+1))
+ ```
+<img width="999" alt="9" src="https://user-images.githubusercontent.com/89936910/210150383-bafd291f-199a-4e42-81e3-55eedd6f19a4.png">
+
+4- Déterminer à partir du tracé, la fréquence fondamentale du gémissement de rorqual bleu.
+
+>Frequence = 16-17 HZ
+
+<img width="999" alt="10" src="https://user-images.githubusercontent.com/89936910/210150429-fac22d38-b776-4bde-b0ca-bcf2ee689799.png">
